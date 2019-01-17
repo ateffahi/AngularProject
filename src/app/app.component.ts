@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { compileNgModule } from '@angular/core/src/render3/jit/module';
-
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +9,8 @@ import { compileNgModule } from '@angular/core/src/render3/jit/module';
 export class AppComponent implements OnInit {
   //----------------------- Varaible -------------------//
   title = 'Amine';
+  seconds: number;
+  counterSubscription: Subscription;
   
   //------------------------- Constructeur ---------------// 
 
@@ -19,6 +20,24 @@ export class AppComponent implements OnInit {
 // ngOnInit methode authomatique 
 
   ngOnInit() {
+    const counter = interval(1000);
+    this.counterSubscription = counter.subscribe(
+      (value) =>{
+        this.seconds = value;
+      },
+      (error) => {
+        console.log('Uh-oh, an error occured! : ' + error);
+      },
+      () => {
+        console.log('Observal complete');        
+      }
+    )
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.counterSubscription.unsubscribe();
   }
 
 }

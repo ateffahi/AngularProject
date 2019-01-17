@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppareilService {
   // -------------------- Variables ----------------------------- 
-  appareils = [
+  appareilSubject = new Subject<any[]>();
+
+  private appareils = [
     {
       id: 1,
       name: 'Machine à laver',
@@ -29,20 +32,24 @@ export class AppareilService {
   switchOnAll() {
     this.appareils.forEach(function (value) {
       value.IsAllumer = true;
+      //this.appareilSubject.emitAppareilSubject();
     });
   }
 
   switchOffAll() {
     for (let a of this.appareils) {
       a.IsAllumer = false;
+      this.emitAppareilSubject();
     };
   }
 
   switchOnOff(i: number) {
     if (this.appareils[i].IsAllumer) {
         this.appareils[i].IsAllumer = false;
+        this.emitAppareilSubject();
     } else {
         this.appareils[i].IsAllumer = true;
+        this.emitAppareilSubject();
     }
   }
 
@@ -53,6 +60,10 @@ export class AppareilService {
       }
     );
     return appareil;
+  }
+
+  emitAppareilSubject(){
+    this.appareilSubject.next(this.appareils.slice());
   }
 
 
