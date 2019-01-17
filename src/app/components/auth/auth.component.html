@@ -1,0 +1,2 @@
+<button class="btn btn-success" [disabled]="authStatus" (click)="OnSignIn()" style="margin:1%;"> Connecter</button>
+<button class="btn btn-danger"  [disabled]="!authStatus" (click)="OnSignOut()" style="margin:1%;"> Déconnecter</button>

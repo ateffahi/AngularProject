@@ -1,0 +1,17 @@
+<li [ngClass]="{'list-group-item': true,
+                 'list-group-item-success': AppareilStatut === true,
+                 'list-group-item-danger': AppareilStatut === false}"
+    style="margin:2%;">
+
+    <!-- au début -->
+    <!--<h4>Appareil{{cpt}} : {{AppareilName}} -- Statut : {{AppareilStatut}} </h4>-->
+    <!-- après -->
+    <!-- <div style="width: 20px;height: 20px;background-color: red;" *ngIf="AppareilStatut === false"> -->
+
+    <div style="width: 20px;height: 20px;background-color: red;" *ngIf="AppareilStatut === false"></div>
+
+    <h4 [ngStyle]="{color:getColor()}">Appareil: {{AppareilName}} -- Statut : {{getStatus()}} </h4>
+    <a [routerLink]="[id]">détail</a>
+    <input type="text" class="form-control" [(ngModel)]="AppareilName">
+    <button class="btn btn-success" (click)="OnOFF()" style="margin:1%;"> ON / OFF</button>
+</li>
